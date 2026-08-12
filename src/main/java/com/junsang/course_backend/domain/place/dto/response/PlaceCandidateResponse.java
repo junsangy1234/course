@@ -16,7 +16,8 @@ public record PlaceCandidateResponse(
         BigDecimal latitude,
         BigDecimal longitude,
         String placeUrl,
-        Integer distanceMeters
+        Integer distanceMeters,
+        KakaoPlaceDocument rawDocument
 ) {
     public static PlaceCandidateResponse from(
             KakaoPlaceDocument document,
@@ -34,7 +35,8 @@ public record PlaceCandidateResponse(
                 document.y(),
                 document.x(),
                 document.placeUrl(),
-                distanceMeters
+                distanceMeters,
+                document
         );
     }
 }

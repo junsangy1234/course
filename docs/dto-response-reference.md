@@ -205,10 +205,26 @@ GET /api/places/candidates?query=용산%20쇼핑&type=ACTIVITY&latitude=37.5326&
     "latitude": 37.5200987,
     "longitude": 126.9718331,
     "placeUrl": "http://place.map.kakao.com/8142949",
-    "distanceMeters": 2155
+    "distanceMeters": 2155,
+    "rawDocument": {
+      "id": "8142949",
+      "place_name": "한강쇼핑센터",
+      "category_name": "가정,생활 > 상가,아케이드",
+      "address_name": "서울 용산구 이촌동 300-27",
+      "road_address_name": "서울 용산구 이촌로 224",
+      "phone": "02-0000-0000",
+      "category_group_code": "",
+      "category_group_name": "",
+      "x": "126.9718331",
+      "y": "37.5200987",
+      "place_url": "http://place.map.kakao.com/8142949",
+      "distance": "2155"
+    }
   }
 ]
 ```
+
+`rawDocument`는 카카오 응답을 우리 DTO의 정제 필드와 별도로 확인하기 위한 원본 영역이다. 운영 저장 데이터로 바로 사용하지 않고, 검색 검증 화면에서 원본 카테고리·주소·좌표 등을 비교하는 용도로 사용한다.
 
 ---
 
