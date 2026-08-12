@@ -20,6 +20,9 @@ spring:
     init:
       mode: never
 
+server:
+  port: ${PORT:8080}
+
 management:
   endpoints:
     web:
