@@ -54,7 +54,7 @@
   <section class="panel">
     <div class="fixed-location"><span class="pin">📍</span><span>서울 용산구 · 중심 좌표 37.5326, 126.9905</span></div>
     <form id="searchForm" class="form">
-      <input id="query" name="query" type="search" value="카페" placeholder="예: 카페, 공방, 쇼핑" autocomplete="off" required />
+      <input id="query" name="query" type="search" value="입력" placeholder="예: 카페, 공방, 쇼핑" autocomplete="off" required />
       <select id="type" name="type" aria-label="장소 유형">
         <option value="ACTIVITY">활동</option>
         <option value="RESTAURANT">음식점</option>
@@ -118,7 +118,7 @@
     status.textContent = '카카오에서 장소를 검색하고 있습니다...';
     summary.hidden = true;
     results.replaceChildren();
-    const params = new URLSearchParams({ query, type: typeInput.value, latitude: searchCenter.latitude, longitude: searchCenter.longitude, radius: radiusInput.value, size: '15' });
+    const params = new URLSearchParams({ query, type: typeInput.value, latitude: searchCenter.latitude, longitude: searchCenter.longitude, radius: radiusInput.value, size: '30' });
     try {
       const response = await fetch(`/api/places/candidates?${params}`);
       if (!response.ok) {
