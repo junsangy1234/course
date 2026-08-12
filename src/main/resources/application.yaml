@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: course_backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/course}
+    username: ${DB_USERNAME:course}
+    password: ${DB_PASSWORD:course}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+  sql:
+    init:
+      mode: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+kakao:
+  local:
+    base-url: https://dapi.kakao.com
+    rest-api-key: ${KAKAO_REST_API_KEY:}
