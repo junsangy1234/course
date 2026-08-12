@@ -103,7 +103,8 @@ public class RecommendationService {
                     request.longitude(),
                     request.latitude(),
                     request.radius(),
-                    PLACE_RESULT_SIZE
+                    PLACE_RESULT_SIZE,
+                    1
             )).documents();
 
             if (documents == null) {

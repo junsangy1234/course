@@ -7,6 +7,7 @@ public record KakaoKeywordSearchRequest(
         BigDecimal longitude,
         BigDecimal latitude,
         int radius,
-        int size
+        int size,
+        int page
 ) {
 }

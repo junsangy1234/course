@@ -252,7 +252,7 @@ GET /api/places/candidates?query=용산%20쇼핑&type=ACTIVITY&latitude=37.5326&
 | --- | --- | --- |
 | `regionName` | 예 | 사용자가 선택한 상위 지역명. 공백만 있는 값은 불가 |
 | `preferenceOptionIds` | 예 | 선택한 선호도 옵션 ID 목록. 빈 배열은 가능 |
-| `size` | 아니오 | 반환할 최대 후보 수. 1~20이며 생략 시 서비스 기본값 적용 |
+| `size` | 아니오 | 반환할 최대 후보 수. 1~30이며, 카카오 API를 여러 페이지로 조회해 합산 |
 
 ### Response
 

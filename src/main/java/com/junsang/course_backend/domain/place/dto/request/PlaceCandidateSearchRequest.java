@@ -36,6 +36,6 @@ public class PlaceCandidateSearchRequest {
     private Integer radius = 3000;
 
     @Min(1)
-    @Max(15)
+    @Max(30)
     private Integer size = 15;
 }

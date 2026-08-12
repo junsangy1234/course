@@ -39,6 +39,7 @@ public class KakaoLocalClient {
                             .queryParam("y", request.latitude())
                             .queryParam("radius", request.radius())
                             .queryParam("size", request.size())
+                            .queryParam("page", request.page())
                             .build())
                     .header(HttpHeaders.AUTHORIZATION, "KakaoAK " + properties.restApiKey())
                     .retrieve()

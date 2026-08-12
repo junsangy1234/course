@@ -7,6 +7,7 @@ import com.junsang.course_backend.infra.kakao.dto.request.KakaoKeywordSearchRequ
 import com.junsang.course_backend.infra.kakao.dto.response.KakaoKeywordSearchResponse;
 import com.junsang.course_backend.infra.kakao.dto.response.KakaoPlaceDocument;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,27 @@ public class PlaceSearchService {
             int radius,
             int size
     ) {
-        KakaoKeywordSearchResponse response = kakaoLocalClient.searchKeyword(
-                new KakaoKeywordSearchRequest(query, longitude, latitude, radius, size)
-        );
-
-        List<KakaoPlaceDocument> documents = response.documents() == null ? List.of() : response.documents();
+        List<KakaoPlaceDocument> documents = new ArrayList<>(size);
+        int remaining = size;
+        int page = 1;
+        while (remaining > 0) {
+            int pageSize = Math.min(15, remaining);
+            KakaoKeywordSearchResponse response = kakaoLocalClient.searchKeyword(
+                    new KakaoKeywordSearchRequest(query, longitude, latitude, radius, pageSize, page)
+            );
+            List<KakaoPlaceDocument> pageDocuments = response.documents() == null
+                    ? List.of()
+                    : response.documents();
+            documents.addAll(pageDocuments);
+            if (pageDocuments.size() < pageSize) {
+                break;
+            }
+            remaining -= pageDocuments.size();
+            page++;
+        }
 
         return documents.stream()
+                .limit(size)
                 .map(document -> PlaceCandidateResponse.from(document, type, parseDistance(document.distance())))
                 .toList();
     }
