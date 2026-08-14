@@ -1,5 +1,6 @@
-package com.junsang.course_backend.domain.place.entity;
+package com.junsang.course_backend.domain.place.entity.tag;
 
+import com.junsang.course_backend.domain.place.entity.Area;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
