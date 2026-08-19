@@ -88,14 +88,12 @@ cities 1:N areas 1:N places
 
 ### 📋 tags
 
-사용자 입력, Area, Place를 같은 기준으로 연결하는 공통 태그 사전이다. `쇼핑`, `팝업`, `조용한`, `빵`처럼 사용자가 선택하는 키워드는 모두 이 테이블을 참조한다.
+사용자 입력, Area, Place를 같은 기준으로 연결하는 공통 태그 사전이다. 허용 키워드는 코드의 `TagCode` enum에서 관리하며, 유사한 화면 선택지는 하나의 대표 태그로 정규화한다.
 
 | 컬럼 | 타입 | 태그 | 설명 |
 |------|------|------|------|
 | `id` | BIGINT | 🔑 PK | 태그 ID, identity |
-| `tag_group` | VARCHAR(20) | ✅ CHECK | `ACTIVITY`, `FOOD`, `MOOD`, `FEATURE` |
-| `code` | VARCHAR(50) | 🟣 UQ | 변경하지 않는 내부 태그 코드 |
-| `name` | VARCHAR(100) | | 화면 표시명 |
+| `code` | VARCHAR(50) | 🟣 UQ | `TagCode` enum 값. 허용 키워드의 단일 기준 |
 
 ### 📋 area_tags
 
@@ -121,7 +119,10 @@ cities 1:N areas 1:N places
 
 **💡 설계 포인트**
 
-- `tags`는 하나의 공통 사전이며, `area_tags`와 `place_tags`는 같은 태그를 다른 대상에 연결한다.
+- `TagCode` enum은 추천 점수에 사용하는 대표 키워드와 화면 선택지 목록을 함께 관리한다. 예: `EXHIBITION("전시", "전시 관람", "갤러리", "미술관·박물관")`.
+- 화면은 `TagCode.options`를 선택지로 노출한다. 어떤 선택지를 고르든 해당 `TagCode` 하나만 요청·저장·점수 계산에 사용한다.
+- 사용자가 같은 `TagCode`에 속한 선택지를 여러 개 고르더라도, 추천 점수 계산 전에는 `TagCode` 기준으로 중복 제거한다.
+- `tags`는 `TagCode`를 DB 관계에 사용할 수 있도록 보관하는 공통 사전이며, `area_tags`와 `place_tags`는 같은 태그를 다른 대상에 연결한다.
 - `weight`는 태그 보유 여부가 아닌, 태그가 Area 또는 Place를 얼마나 대표하는지 나타낸다.
 - 같은 Area 또는 Place에 같은 Tag를 중복 연결할 수 없다.
 - Area와 Place는 서로 다른 테이블이므로 연결 테이블을 분리한다. 하나의 `target_type`, `target_id` 테이블로 합치면 FK 무결성을 보장할 수 없다.

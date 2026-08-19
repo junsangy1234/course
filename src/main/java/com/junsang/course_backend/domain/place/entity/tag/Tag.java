@@ -24,12 +24,12 @@ public class Tag {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tag_group", nullable = false, length = 20)
-    private TagGroup tagGroup;
-
     @Column(nullable = false, length = 50)
-    private String code;
+    private TagCode code;
 
-    @Column(nullable = false, length = 100)
-    private String name;
+    public static Tag create(TagCode code) {
+        Tag tag = new Tag();
+        tag.code = code;
+        return tag;
+    }
 }
